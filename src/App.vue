@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <Header />
-    <Main  />
+    <Header @compileInfo="setMovie($event)"/>
+    <Main 
+    :movieFind="movieSearch"
+    />
   </div>
 </template>
 
@@ -15,6 +17,16 @@ export default {
     Header,
     Main
   },
+  data() {
+    return {
+      movieSearch: [],
+    }
+  },
+  methods: {
+    setMovie(array) {{
+      this.movieSearch = array;
+    }}
+  }
 };
 </script>
 
