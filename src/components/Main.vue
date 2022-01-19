@@ -3,10 +3,10 @@
       <ul v-for="(movie, index) in movieFind"
           :key="index">
           <li>
-              {{ movie.title}}
+              {{ movie.title || movie.name}}
           </li>
           <li>
-              {{ movie.original_title}}
+              {{ movie.original_title || movie.original_name }}
           </li>
           <li>
               {{ movie.original_language}}
@@ -19,17 +19,12 @@
 </template>
 
 <script>
-// import axios from 'axios';
 
 export default {
     name: "Main",
     data() {
         return {
-            // movies: [],
-            // queryApi: 'https://api.themoviedb.org/3/search/movie',
-            // apiKey: '?api_key=' + '981731b128a2c3353bf07ea0418b25f5', //mia api_key
-            // lang: '&language=',
-            // query: '&query=',
+
         }
     },
     props: {
@@ -41,17 +36,7 @@ export default {
         
     },
     methods: {
-        // runSearch() {
-        //     axios
-        //     .get(this.queryApi+this.apiKey+this.lang+'it-IT'+this.query+this.movie)
-        //     .then(result => {
-        //         console.log(result.data.results);
-        //         this.movies = result.data.results;
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
-        // }
+        
     }
 }
 </script>

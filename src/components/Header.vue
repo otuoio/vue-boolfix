@@ -13,8 +13,10 @@ export default {
     data() {
         return {
             inputText: '',
+            shows: [],
             movies: [],
-            queryApi: 'https://api.themoviedb.org/3/search/movie',
+            queryMovie: 'https://api.themoviedb.org/3/search/movie',
+            queryTv: 'https://api.themoviedb.org/3/search/tv',
             apiKey: '?api_key=' + '981731b128a2c3353bf07ea0418b25f5', //mia api_key
             lang: '&language=',
             query: '&query=',
@@ -26,14 +28,44 @@ export default {
     methods: {
         runSearch() {
             axios
-            .get(this.queryApi+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
+            .get(this.queryMovie+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
             .then(result => {
-                console.log(result.data.results);
-                this.movies = result.data.results;
+                // console.log(result.data.results);
+                this.shows = result.data.results;
+                // this.movies.forEach(element => {
+                //     console.log(element.original_language);
+                // });
+                axios
+                .get(this.queryTv+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
+                .then(result => {
+                    this.movies = this.shows.concat(result.data.results);
+                    console.log(this.movies);
+                    // this.movies.forEach(element => {
+                    //     console.log(element.original_language);
+                    // });
+                })
+                .catch(error => {
+                    console.log(error);
+                });
             })
             .catch(error => {
                 console.log(error);
             });
+
+            // if (movieQuery == error) {
+            //     axios
+            // .get(this.queryTv+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
+            // .then(result => {
+            //     console.log(result);
+            //     this.movies = result.data.results;
+            //     // this.movies.forEach(element => {
+            //     //     console.log(element.original_language);
+            //     // });
+            // })
+            // .catch(error => {
+            //     console.log(error);;
+            // });
+            // };
         }
     }
 }
