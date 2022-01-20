@@ -4,6 +4,7 @@
         {{ originalTitle }}
         {{ language }}
         {{ vote }}
+        <img :src="poster" :alt="alt">
   </div>
 </template>
 
@@ -23,6 +24,12 @@ export default {
         vote: {
             type: Number,
         },
+        poster: {
+            type: String,
+        },
+        alt: {
+            type: String,
+        }
     }
 }
 </script>

@@ -7,6 +7,8 @@
             :originalTitle="movie.original_title || movie.original_name"
             :language="movie.original_language"
             :vote="movie.vote_average"
+            :poster="'https://image.tmdb.org/t/p/w92/'+movie.poster_path"
+            :alt="movie.original_title || movie.original_name"
             />
         </div>
     </main>
