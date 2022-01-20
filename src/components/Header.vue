@@ -1,12 +1,15 @@
 <template>
-  <div>
-      <input type="text" name="text" id="text" placeholder="Search" v-model="inputText" @keyup.enter="runSearch()">
-      <button @click="$emit('compileInfo', movies)" class="btn">Cerca</button>
-  </div>
+    <header>
+        <div>
+            <input type="text" name="text" id="text" placeholder="Search" v-model="inputText" @keyup.enter="runSearch()">
+            <button @click="$emit('compileInfo', movies)" class="btn">Cerca</button>
+        </div>
+    </header>
 </template>
 
 <script>
 import axios from 'axios';
+
 
 export default {
     name: "Header",
@@ -30,19 +33,13 @@ export default {
             axios
             .get(this.queryMovie+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
             .then(result => {
-                // console.log(result.data.results);
                 this.shows = result.data.results;
-                // this.movies.forEach(element => {
-                //     console.log(element.original_language);
-                // });
+                
                 axios
                 .get(this.queryTv+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
                 .then(result => {
                     this.movies = this.shows.concat(result.data.results);
                     console.log(this.movies);
-                    // this.movies.forEach(element => {
-                    //     console.log(element.original_language);
-                    // });
                 })
                 .catch(error => {
                     console.log(error);
@@ -51,22 +48,7 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-
-            // if (movieQuery == error) {
-            //     axios
-            // .get(this.queryTv+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
-            // .then(result => {
-            //     console.log(result);
-            //     this.movies = result.data.results;
-            //     // this.movies.forEach(element => {
-            //     //     console.log(element.original_language);
-            //     // });
-            // })
-            // .catch(error => {
-            //     console.log(error);;
-            // });
-            // };
-        }
+        },
     }
 }
 </script>
