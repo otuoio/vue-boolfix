@@ -6,7 +6,7 @@
             :title="movie.title || movie.name"
             :originalTitle="movie.original_title || movie.original_name"
             :language="movie.original_language"
-            :vote="movie.vote_average"
+            :vote="voteCorrector(movie.vote_average)"
             :poster="pathCorrector(movie.poster_path)"
             :alt="movie.original_title || movie.original_name"
             />
@@ -45,6 +45,10 @@ export default {
             } else {
                 return 'https://image.tmdb.org/t/p/w92/'+path;
             }
+        },
+        voteCorrector(number) {
+            let vote = Math.ceil((number * 5) / 10);
+            return vote;
         }
     }
 }
