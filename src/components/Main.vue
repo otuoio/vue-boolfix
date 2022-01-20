@@ -1,29 +1,25 @@
 <template>
     <main>
         <div>
-            <ul v-for="(movie, index) in movieFind"
-                :key="index">
-                <li>
-                    {{ movie.title || movie.name}}
-                </li>
-                <li>
-                    {{ movie.original_title || movie.original_name }}
-                </li>
-                <li>
-                    <country-flag :country='getFlags(movie.original_language)' size='small' shadow />
-                </li>
-                <li>
-                    {{ movie.vote_average}}
-                </li>
-            </ul>
+            <Card v-for="(movie, index) in movieFind"
+            :key="index"
+            :title="movie.title || movie.name"
+            :originalTitle="movie.original_title || movie.original_name"
+            :language="movie.original_language"
+            :vote="movie.vote_average"
+            />
         </div>
     </main>
 </template>
 
 <script>
+import Card from './Card.vue'
 
 export default {
     name: "Main",
+    components: {
+        Card
+    },
     data() {
         return {
 

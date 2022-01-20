@@ -30,6 +30,12 @@ export default {
     },
     methods: {
         runSearch() {
+            // let endpoint = 'movie';
+            // let parameters = {
+            //     apiKey: this.apiKey,
+            //     language: 'it-IT',
+            //     query: this.inputText
+            // };
             axios
             .get(this.queryMovie+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
             .then(result => {
