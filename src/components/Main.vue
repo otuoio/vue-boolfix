@@ -7,7 +7,7 @@
             :originalTitle="movie.original_title || movie.original_name"
             :language="movie.original_language"
             :vote="movie.vote_average"
-            :poster="'https://image.tmdb.org/t/p/w92/'+movie.poster_path"
+            :poster="pathCorrector(movie.poster_path)"
             :alt="movie.original_title || movie.original_name"
             />
         </div>
@@ -39,14 +39,12 @@ export default {
         
     },
     methods: {
-        getFlags(lan) {
-            if (lan === 'en') {
-                return 'gb';
-            } else if (lan === 'ja') {
-                return 'jp';
+        pathCorrector(path) {
+            if (path === null) {
+                return null;
             } else {
-                return lan;
-            };
+                return 'https://image.tmdb.org/t/p/w92/'+path;
+            }
         }
     }
 }

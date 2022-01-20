@@ -2,7 +2,7 @@
   <div class="card">
         {{ title }}
         {{ originalTitle }}
-        {{ language }}
+        <country-flag :country='getFlags(language)' size='small' shadow />
         {{ vote }}
         <img :src="poster" :alt="alt">
   </div>
@@ -29,6 +29,17 @@ export default {
         },
         alt: {
             type: String,
+        }
+    },
+    methods: {
+        getFlags(lan) {
+            if (lan === 'en') {
+                return 'gb';
+            } else if (lan === 'ja') {
+                return 'jp';
+            } else {
+                return lan;
+            };
         }
     }
 }
