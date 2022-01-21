@@ -1,22 +1,24 @@
 <template>
   <div class="card">
-      <div class="poster">
+      <div @mouseover="showInfo = true" @mouseleave="showInfo=false" class="poster">
           <img v-if="isNull(poster)" :src="poster" :alt="alt">
-          <div class="not-poster">
+          <div v-else class="not-poster">
               {{ originalTitle}}
           </div>
       </div>
-      <h2 class="title">Title: {{ title }}</h2>
-      <h3 class="org_title">Original Title: {{ originalTitle }}</h3>
-      <div class="flag">
+      <div v-show="showInfo" class="info">
+          <h2 class="title">Title: {{ title }}</h2>
+        <h3 class="org_title">Original Title: {{ originalTitle }}</h3>
+        <div class="flag">
             <country-flag v-if="isAvailable()" :country='getFlags(language)' size='small' shadow />
             <span v-else>{{ language }}</span>
-      </div>
-      <div class="vote">
+        </div>
+        <div class="vote">
           <font-awesome-icon v-for="(item, index) in votes"
             :key="index" :icon="[votesArray(index, vote), 'star']" /> 
-      </div>
-      <p><b>Overview: </b>{{ overview }}</p>
+        </div>
+        <p><b>Overview: </b>{{ overview }}</p>
+        </div>
   </div>
 </template>
 
@@ -42,6 +44,7 @@ export default {
                 'de',
                 'fr'
             ],
+            showInfo: false,
         }
     },
     props: {
@@ -101,5 +104,18 @@ export default {
 </script>
 
 <style lang="scss">
-    
+@import '../assets/scss/partials/_mixins.scss';
+
+.card {
+    flex-basis: 22%;
+    text-align: center;
+    .poster {
+        height: 70vh;
+        border: 1px solid white;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
 </style>

@@ -66,19 +66,20 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../assets/scss/partials/_mixins.scss';
+
  .head-container {
      width: 100%;
-     height: 100px;
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
+     height: 10vh;
+     @include flex(space-between, center, nowrap);
      padding: 1em 2em;
      background-color: black;
      .logo {
+         height: 100%;
          width: 20%;
          img {
-             width: 50%;
-             height: 80%;
+             width: 40%;
+             height: 100%;
          }
      }
  }

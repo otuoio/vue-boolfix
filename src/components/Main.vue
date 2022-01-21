@@ -42,6 +42,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '../assets/scss/partials/_variables.scss';
+@import '../assets/scss/partials/_mixins.scss';
 
+.cards {
+    width: 100%;
+    height: 90vh;
+    background-color: $bg-gray;
+    overflow-y: auto;
+    @include flex(space-around, start, wrap);
+    padding: 1em;
+}
 </style>
