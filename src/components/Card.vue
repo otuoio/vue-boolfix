@@ -3,7 +3,7 @@
       <div class="poster">
           <img v-if="isNull(poster)" :src="poster" :alt="alt">
           <div v-else class="not-poster">
-              {{ originalTitle}}
+              <p>{{ originalTitle}}</p>
           </div>
       </div>
       <div class="info">
@@ -120,6 +120,16 @@ export default {
         img {
             width: 100%;
             height: 100%;
+        }
+        .not-poster {
+            height: 100%;
+            line-height: 100%;
+            text-align: center;
+            color: white;
+            font-size: 1em;
+            p {
+            vertical-align: middle;
+            }
         }
     }
     &:hover .poster {

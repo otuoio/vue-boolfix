@@ -52,6 +52,5 @@ export default {
     background-color: $bg-gray;
     overflow-y: auto;
     @include flex(space-around, start, wrap);
-    padding: 1em;
 }
 </style>
