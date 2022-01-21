@@ -2,7 +2,7 @@
     <header>
         <div>
             <input type="text" name="text" id="text" placeholder="Search" v-model="inputText" @keyup.enter="runSearch()">
-            <button @click="$emit('compileInfo', movies)" class="btn">Cerca</button>
+            <button @click="$emit('compileInfo', cards)" class="btn">Cerca</button>
         </div>
     </header>
 </template>
@@ -16,13 +16,13 @@ export default {
     data() {
         return {
             inputText: '',
-            shows: [],
+            cards: [],
             movies: [],
-            queryMovie: 'https://api.themoviedb.org/3/search/movie',
+            Tvs: [],
+            queryLink: 'https://api.themoviedb.org/3/search/',
             queryTv: 'https://api.themoviedb.org/3/search/tv',
-            apiKey: '?api_key=' + '981731b128a2c3353bf07ea0418b25f5', //mia api_key
-            lang: '&language=',
-            query: '&query=',
+            apiKey: '981731b128a2c3353bf07ea0418b25f5', //mia api_key
+            lang: 'it-IT',
         }
     },
     created() {
@@ -30,17 +30,23 @@ export default {
     },
     methods: {
         runSearch() {
-           
+            let queryLink = this.queryLink;
+            let endpointMovie = 'movie';
+            let endpointTv = 'tv';
+            let parameters = {
+                api_key: this.apiKey,
+                language: this.lang,
+                query: this.inputText
+            }
             axios
-            .get(this.queryMovie+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
+            .get(`${queryLink}${endpointMovie}`, {params: parameters})
             .then(result => {
-                this.shows = result.data.results;
-                
+                this.movies = result.data.results;
                 axios
-                .get(this.queryTv+this.apiKey+this.lang+'it-IT'+this.query+this.inputText)
+                .get(`${queryLink}${endpointTv}`, {params: parameters})
                 .then(result => {
-                    this.movies = this.shows.concat(result.data.results);
-                    console.log(this.movies);
+                    this.Tvs = result.data.results;
+                    this.cards = this.movies.concat(this.Tvs);
                 })
                 .catch(error => {
                     console.log(error);
@@ -49,7 +55,7 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-        },
+        }
     }
 }
 </script>
