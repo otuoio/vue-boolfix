@@ -1,5 +1,11 @@
 <template>
   <div class="card">
+      <div class="poster">
+          <img v-if="isNull(poster)" :src="poster" :alt="alt">
+          <div class="not-poster">
+              {{ originalTitle}}
+          </div>
+      </div>
       <h2 class="title">Title: {{ title }}</h2>
       <h3 class="org_title">Original Title: {{ originalTitle }}</h3>
       <div class="flag">
@@ -10,13 +16,7 @@
           <font-awesome-icon v-for="(item, index) in votes"
             :key="index" :icon="[votesArray(index, vote), 'star']" /> 
       </div>
-      <div class="poster">
-          <img v-if="isNull(poster)" :src="poster" :alt="alt">
-          <div class="not-poster">
-              {{ originalTitle}}
-          </div>
-      </div>
-      <p><b>Overview: {{ overview }}</b></p>
+      <p><b>Overview: </b>{{ overview }}</p>
   </div>
 </template>
 

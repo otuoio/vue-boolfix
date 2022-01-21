@@ -1,6 +1,6 @@
 <template>
     <main>
-        <div>
+        <div class="cards">
             <Card v-for="(card, index) in cards"
             :key="index"
             :title="card.title || card.name"

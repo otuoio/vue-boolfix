@@ -1,8 +1,13 @@
 <template>
     <header>
-        <div>
-            <input type="text" name="text" id="text" placeholder="Search" v-model="inputText" @keyup.enter="runSearch()">
-            <button @click="$emit('compileInfo', cards)" class="btn">Cerca</button>
+        <div class="head-container">
+            <div class="logo">
+                <img src="../assets/img/netflix-logo.png" alt="Netflix">
+            </div>
+            <div class="search">
+                <input type="text" name="text" id="text" placeholder="Search" v-model="inputText" @keyup.enter="runSearch()">
+                <button @click="$emit('compileInfo', cards)" class="btn">Cerca</button>
+            </div>
         </div>
     </header>
 </template>
@@ -60,6 +65,21 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+ .head-container {
+     width: 100%;
+     height: 100px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1em 2em;
+     background-color: black;
+     .logo {
+         width: 20%;
+         img {
+             width: 50%;
+             height: 80%;
+         }
+     }
+ }
 </style>
