@@ -9,6 +9,7 @@
             :vote="voteCorrector(card.vote_average)"
             :poster="posterLink + card.poster_path"
             :alt="card.original_title || card.original_name"
+            :overview="card.overview"
             />
         </div>
     </main>
@@ -24,7 +25,7 @@ export default {
     },
     data() {
         return {
-            posterLink: 'https://image.tmdb.org/t/p/w92/',
+            posterLink: 'https://image.tmdb.org/t/p/w342/',
         }
     },
     props: {

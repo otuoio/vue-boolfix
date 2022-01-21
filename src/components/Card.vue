@@ -16,6 +16,7 @@
               {{ originalTitle}}
           </div>
       </div>
+      <p><b>Overview: {{ overview }}</b></p>
   </div>
 </template>
 
@@ -61,11 +62,14 @@ export default {
         },
         alt: {
             type: String,
+        },
+        overview: {
+            type: String,
         }
     },
     methods: {
         isNull(item) {
-            if (item !== 'https://image.tmdb.org/t/p/w92/null') {
+            if (item !== 'https://image.tmdb.org/t/p/w342/null') {
                 return true;
             }
         },
