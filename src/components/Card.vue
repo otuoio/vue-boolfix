@@ -11,7 +11,10 @@
             :key="index" :icon="[votesArray(index, vote), 'star']" /> 
       </div>
       <div class="poster">
-          <img :src="poster" :alt="alt">
+          <img v-if="isNull(poster)" :src="poster" :alt="alt">
+          <div class="not-poster">
+              {{ originalTitle}}
+          </div>
       </div>
   </div>
 </template>
@@ -61,6 +64,11 @@ export default {
         }
     },
     methods: {
+        isNull(item) {
+            if (item !== 'https://image.tmdb.org/t/p/w92/null') {
+                return true;
+            }
+        },
         isAvailable() {
             if (this.languages.includes(this.language)) {
                 return true;

@@ -7,7 +7,7 @@
             :originalTitle="card.original_title || card.original_name"
             :language="card.original_language"
             :vote="voteCorrector(card.vote_average)"
-            :poster="pathCorrector(card.poster_path)"
+            :poster="posterLink + card.poster_path"
             :alt="card.original_title || card.original_name"
             />
         </div>
@@ -24,7 +24,7 @@ export default {
     },
     data() {
         return {
-
+            posterLink: 'https://image.tmdb.org/t/p/w92/',
         }
     },
     props: {
@@ -32,20 +32,7 @@ export default {
             type: Array,
         }
     },
-    created() {
-        
-    },
-    computed: {
-        
-    },
     methods: {
-        pathCorrector(path) {
-            if (path === null) {
-                return null;
-            } else {
-                return 'https://image.tmdb.org/t/p/w92/'+path;
-            }
-        },
         voteCorrector(number) {
             let vote = Math.ceil((number * 5) / 10);
             return vote;
