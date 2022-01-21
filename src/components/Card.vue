@@ -1,28 +1,36 @@
 <template>
   <div class="card">
-        {{ title }}
-        {{ originalTitle }}
-        <country-flag :country='getFlags(language)' size='small' shadow />
-        <i class="far fa-star"></i>
-        <i class="fas fa-star"></i>
-        <!-- <font-awesome-icon icon="user-secret" /> -->
-        <!-- <font-awesome-icon icon="'star'" /> -->
-        <font-awesome-icon :icon="['far', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        {{ vote }}
-        <img :src="poster" :alt="alt">
+      <h2 class="title">Title: {{ title }}</h2>
+      <h3 class="org_title">Original Title: {{ originalTitle }}</h3>
+      <div class="flag">
+          Language: <country-flag :country='getFlags(language)' size='small' shadow />
+      </div>
+      <div class="vote">
+            Vote: <font-awesome-icon v-for="(item, index) in votes"
+            :key="index" :icon="[votesArray(index, vote), 'star']" /> 
+      </div>
+      <div class="poster">
+          <img :src="poster" :alt="alt">
+      </div>
   </div>
 </template>
 
 <script>
-
-
-
-
 export default {
     name: 'Card',
     compontent: {
 
+    },
+    data() {
+        return {
+            votes: [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+        }
     },
     props: {
         title: {
@@ -53,11 +61,18 @@ export default {
             } else {
                 return lan;
             };
+        },
+        votesArray(index, number) {
+            if (index < number) {
+                return 'fas';
+            } else {
+                return 'far';
+            }
         }
     }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    
 </style>
