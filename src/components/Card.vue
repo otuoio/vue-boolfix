@@ -3,10 +3,11 @@
       <h2 class="title">Title: {{ title }}</h2>
       <h3 class="org_title">Original Title: {{ originalTitle }}</h3>
       <div class="flag">
-          Language: <country-flag :country='getFlags(language)' size='small' shadow />
+            <country-flag v-if="isAvailable()" :country='getFlags(language)' size='small' shadow />
+            <span v-else>{{ language }}</span>
       </div>
       <div class="vote">
-            Vote: <font-awesome-icon v-for="(item, index) in votes"
+          <font-awesome-icon v-for="(item, index) in votes"
             :key="index" :icon="[votesArray(index, vote), 'star']" /> 
       </div>
       <div class="poster">
@@ -29,6 +30,13 @@ export default {
                 3,
                 4,
                 5
+            ],
+            languages: [
+                'it',
+                'en',
+                'es',
+                'de',
+                'fr'
             ],
         }
     },
@@ -53,6 +61,13 @@ export default {
         }
     },
     methods: {
+        isAvailable() {
+            if (this.languages.includes(this.language)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
         getFlags(lan) {
             if (lan === 'en') {
                 return 'gb';

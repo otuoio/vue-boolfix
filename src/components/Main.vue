@@ -1,14 +1,14 @@
 <template>
     <main>
         <div>
-            <Card v-for="(movie, index) in movieFind"
+            <Card v-for="(card, index) in cards"
             :key="index"
-            :title="movie.title || movie.name"
-            :originalTitle="movie.original_title || movie.original_name"
-            :language="movie.original_language"
-            :vote="voteCorrector(movie.vote_average)"
-            :poster="pathCorrector(movie.poster_path)"
-            :alt="movie.original_title || movie.original_name"
+            :title="card.title || card.name"
+            :originalTitle="card.original_title || card.original_name"
+            :language="card.original_language"
+            :vote="voteCorrector(card.vote_average)"
+            :poster="pathCorrector(card.poster_path)"
+            :alt="card.original_title || card.original_name"
             />
         </div>
     </main>
@@ -28,7 +28,7 @@ export default {
         }
     },
     props: {
-        movieFind: {
+        cards: {
             type: Array,
         }
     },
