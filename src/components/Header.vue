@@ -67,8 +67,9 @@ export default {
                     axios
                     .get(`${queryMovieCredits}${endpointMovieCredits}`, {params: parameters2})
                     .then(result => {
-                        // console.log(result.data.cast);
-                        this.moviesCast.push(result.data.cast.slice(0, 5));
+                        // aggiungo il cast all'oggetto relativo ad ogni movie
+                        element.cast = result.data.cast.splice(0, 5);
+                        
                     })
                     .catch(error => {
                         console.log(error);
@@ -86,14 +87,14 @@ export default {
                         axios
                         .get(`${queryTvCredits}${endpointTvCredits}`, {params: parameters2})
                         .then(result => {
-                            // console.log(result.data.cast);
-                            this.tvsCast.push(result.data.cast.slice(0, 5));
+                            // aggiungo il cast all'oggetto relativo ad ogni serie
+                            element.cast = result.data.cast.splice(0, 5);
                         })
                         .catch(error => {
                             console.log(error);
                         });
                     });
-                    this.cards = this.movies.concat(this.tvs).concat(this.moviesCast).concat(this.tvsCast);
+                    this.cards = this.movies.concat(this.tvs);
                     console.log(this.cards);
                 })
                 .catch(error => {

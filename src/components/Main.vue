@@ -10,6 +10,7 @@
             :poster="posterLink + card.poster_path"
             :alt="card.original_title || card.original_name"
             :overview="card.overview"
+            :cast="card.cast"
             />
         </div>
     </main>

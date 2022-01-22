@@ -21,6 +21,14 @@
                 :key="index" :icon="[votesArray(index, vote), 'star']" class="star" /> 
             </div>
             <p><b>Overview: </b>{{ overview }}</p>
+            <div class="cast">
+                Cast
+                <div class="actor" v-for="(actor, index) in cast"
+                :key="index"
+                >
+                {{ actor.name }}
+                </div>
+            </div>
         </div>
       <!-- /card info hidden, showed on hover -->
   </div>
@@ -48,10 +56,6 @@ export default {
                 'de',
                 'fr'
             ],
-            // api request data
-            queryLink: 'https://api.themoviedb.org/3/search/',
-            apiKey: '981731b128a2c3353bf07ea0418b25f5', //mia api_key
-            lang: 'it-IT',
         }
     },
     props: {
@@ -76,6 +80,9 @@ export default {
         overview: {
             type: String,
         },
+        cast: {
+            type: Array,
+        }
     },
     methods: {
         isNull(item) {
@@ -156,7 +163,8 @@ export default {
         h3,
         p,
         .flag span,
-        .star {
+        .star,
+        .cast {
             margin: .5em;
         }
         h2,
@@ -167,6 +175,9 @@ export default {
         }
         .star {
             color: rgb(255, 208, 0);
+        }
+        .actor {
+            font-weight: 300;
         }
     }
     &:hover .info {
