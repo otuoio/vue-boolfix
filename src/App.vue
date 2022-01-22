@@ -23,7 +23,7 @@ export default {
     }
   },
   methods: {
-    setMovie(array) {{
+    setMovie(array) {{ //received array emit function
       this.searchArray = array;
     }}
   }

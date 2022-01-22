@@ -1,13 +1,18 @@
 <template>
     <header>
         <div class="head-container">
+            <!-- logo -->
             <div class="logo">
                 <img src="../assets/img/netflix-logo.png" alt="Netflix">
             </div>
+            <!-- /logo -->
+
+            <!-- search bar -->
             <div class="search">
                 <input type="text" name="text" id="text" placeholder="Search" v-model="inputText" @keyup.enter="runSearch()">
                 <button @click="$emit('compileInfo', cards)" class="btn">Cerca</button>
             </div>
+            <!-- /search bar -->
         </div>
     </header>
 </template>
@@ -23,9 +28,13 @@ export default {
             inputText: '',
             cards: [],
             movies: [],
-            Tvs: [],
+            tvs: [],
+            moviesCast: [],
+            tvsCast: [],
+            // api request data
             queryLink: 'https://api.themoviedb.org/3/search/',
-            queryTv: 'https://api.themoviedb.org/3/search/tv',
+            queryMovieCredits: 'https://api.themoviedb.org/3/movie/',
+            queryTvCredits: 'https://api.themoviedb.org/3/tv/',
             apiKey: '981731b128a2c3353bf07ea0418b25f5', //mia api_key
             lang: 'it-IT',
         }
@@ -34,7 +43,7 @@ export default {
        
     },
     methods: {
-        runSearch() {
+        runSearch() { //axios request function on keyup enter 
             let queryLink = this.queryLink;
             let endpointMovie = 'movie';
             let endpointTv = 'tv';
@@ -42,16 +51,50 @@ export default {
                 api_key: this.apiKey,
                 language: this.lang,
                 query: this.inputText
-            }
+            };
+            let parameters2 = {
+                api_key: this.apiKey,
+                language: this.lang,
+            };
             axios
             .get(`${queryLink}${endpointMovie}`, {params: parameters})
             .then(result => {
                 this.movies = result.data.results;
+                // chiamata axios per reperire il cast dall'id per movie
+                this.movies.forEach(element => {
+                    let queryMovieCredits = this.queryMovieCredits
+                    let endpointMovieCredits = element.id + '/credits';
+                    axios
+                    .get(`${queryMovieCredits}${endpointMovieCredits}`, {params: parameters2})
+                    .then(result => {
+                        // console.log(result.data.cast);
+                        this.moviesCast = result.data.cast;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                });
+                // chiamata per le tvs
                 axios
                 .get(`${queryLink}${endpointTv}`, {params: parameters})
                 .then(result => {
-                    this.Tvs = result.data.results;
-                    this.cards = this.movies.concat(this.Tvs);
+                    this.tvs = result.data.results;
+                    // chiamata axios per reperire il cast dall'id per tvs
+                    this.tvs.forEach(element => {
+                        let queryTvCredits = this.queryTvCredits
+                        let endpointTvCredits = element.id + '/aggregate_credits';
+                        axios
+                        .get(`${queryTvCredits}${endpointTvCredits}`, {params: parameters2})
+                        .then(result => {
+                            // console.log(result.data.cast);
+                            this.tvsCast = result.data.cast;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                    });
+                    this.cards = this.movies.concat(this.tvs).concat(this.moviesCast).concat(this.tvsCast);
+                    console.log(this.cards);
                 })
                 .catch(error => {
                     console.log(error);

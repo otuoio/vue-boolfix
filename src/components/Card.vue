@@ -1,24 +1,28 @@
 <template>
   <div class="card">
+      <!-- card poster -->
       <div class="poster">
           <img v-if="isNull(poster)" :src="poster" :alt="alt">
           <div v-else class="not-poster">
               <p>{{ originalTitle}}</p>
           </div>
       </div>
+      <!-- /card poster -->
+      <!-- card info hidden, showed on hover -->
       <div class="info">
-        <h2 class="title"><b>Titolo: </b> {{ title }}</h2>
-        <h3 class="org_title"><b>Titolo originale: </b> {{ originalTitle }}</h3>
-        <div class="flag">
-            <country-flag v-if="isAvailable()" :country='getFlags(language)' size='small' shadow class="lang"/>
-            <span v-else>{{ language }}</span>
+            <h2 class="title"><b>Titolo: </b> {{ title }}</h2>
+            <h3 class="org_title"><b>Titolo originale: </b> {{ originalTitle }}</h3>
+            <div class="flag">
+                <country-flag v-if="isAvailable()" :country='getFlags(language)' size='small' shadow class="lang"/>
+                <span v-else>{{ language }}</span>
+            </div>
+            <div class="vote">
+            <font-awesome-icon v-for="(item, index) in votes"
+                :key="index" :icon="[votesArray(index, vote), 'star']" class="star" /> 
+            </div>
+            <p><b>Overview: </b>{{ overview }}</p>
         </div>
-        <div class="vote">
-          <font-awesome-icon v-for="(item, index) in votes"
-            :key="index" :icon="[votesArray(index, vote), 'star']" class="star" /> 
-        </div>
-        <p><b>Overview: </b>{{ overview }}</p>
-        </div>
+      <!-- /card info hidden, showed on hover -->
   </div>
 </template>
 
@@ -44,7 +48,10 @@ export default {
                 'de',
                 'fr'
             ],
-            showInfo: false,
+            // api request data
+            queryLink: 'https://api.themoviedb.org/3/search/',
+            apiKey: '981731b128a2c3353bf07ea0418b25f5', //mia api_key
+            lang: 'it-IT',
         }
     },
     props: {
@@ -68,7 +75,7 @@ export default {
         },
         overview: {
             type: String,
-        }
+        },
     },
     methods: {
         isNull(item) {

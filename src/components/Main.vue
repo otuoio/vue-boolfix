@@ -34,7 +34,7 @@ export default {
         }
     },
     methods: {
-        voteCorrector(number) {
+        voteCorrector(number) {//vote from 10 to 5 function
             let vote = Math.ceil((number * 5) / 10);
             return vote;
         }
@@ -51,6 +51,6 @@ export default {
     height: 90vh;
     background-color: $bg-gray;
     overflow-y: auto;
-    @include flex(space-around, start, wrap);
+    @include flex(flex-start, start, wrap);
 }
 </style>
