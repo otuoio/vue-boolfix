@@ -68,7 +68,7 @@ export default {
                     .get(`${queryMovieCredits}${endpointMovieCredits}`, {params: parameters2})
                     .then(result => {
                         // console.log(result.data.cast);
-                        this.moviesCast = result.data.cast;
+                        this.moviesCast.push(result.data.cast.slice(0, 5));
                     })
                     .catch(error => {
                         console.log(error);
@@ -87,7 +87,7 @@ export default {
                         .get(`${queryTvCredits}${endpointTvCredits}`, {params: parameters2})
                         .then(result => {
                             // console.log(result.data.cast);
-                            this.tvsCast = result.data.cast;
+                            this.tvsCast.push(result.data.cast.slice(0, 5));
                         })
                         .catch(error => {
                             console.log(error);
