@@ -22,11 +22,17 @@
             </div>
             <p><b>Overview: </b>{{ overview }}</p>
             <div class="cast">
-                Cast
+                Cast: 
                 <div class="actor" v-for="(actor, index) in cast"
                 :key="index"
                 >
-                {{ actor.name }}
+                {{ actor.name }} {{ comma(cast, index) }}
+                </div>
+            </div>
+            <div class="genres">
+                <div class="genre" v-for="(genre, index) in genres"
+                :key="index">
+                {{ genre.name }} {{ comma(genres, index) }}
                 </div>
             </div>
         </div>
@@ -37,9 +43,6 @@
 <script>
 export default {
     name: 'Card',
-    compontent: {
-
-    },
     data() {
         return {
             votes: [
@@ -82,6 +85,9 @@ export default {
         },
         cast: {
             type: Array,
+        },
+        genres: {
+            type: Array,
         }
     },
     methods: {
@@ -113,8 +119,10 @@ export default {
                 return 'far';
             }
         },
-        isHover() {
-            
+        comma(array, index) {
+            if (index < array.length - 1) {
+                return ',';
+            }
         }
     }
 }
@@ -164,7 +172,8 @@ export default {
         p,
         .flag span,
         .star,
-        .cast {
+        .cast,
+        .genres {
             margin: .5em;
         }
         h2,
@@ -176,8 +185,10 @@ export default {
         .star {
             color: rgb(255, 208, 0);
         }
-        .actor {
+        .actor,
+        .genre {
             font-weight: 300;
+            display: inline;
         }
     }
     &:hover .info {

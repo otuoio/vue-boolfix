@@ -69,6 +69,17 @@ export default {
                     .then(result => {
                         // aggiungo il cast all'oggetto relativo ad ogni movie
                         element.cast = result.data.cast.splice(0, 5);
+                        //chiamata axios per reperire i generi associati al movie
+                        let endpointMovieDetails = element.id;
+                        axios
+                        .get(`${queryMovieCredits}${endpointMovieDetails}`, {params: parameters2})
+                        .then(result => {
+                            //aggiungo i generi all'oggetto relativo al movie
+                            element.genres = result.data.genres;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
                         
                     })
                     .catch(error => {
@@ -89,6 +100,17 @@ export default {
                         .then(result => {
                             // aggiungo il cast all'oggetto relativo ad ogni serie
                             element.cast = result.data.cast.splice(0, 5);
+                            //chiamata axios per reperire i generi associati al movie
+                            let endpointTvDetails = element.id;
+                            axios
+                            .get(`${queryTvCredits}${endpointTvDetails}`, {params: parameters2})
+                            .then(result => {
+                                //aggiungo i generi all'oggetto relativo al movie
+                                element.genres = result.data.genres;
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            });
                         })
                         .catch(error => {
                             console.log(error);
