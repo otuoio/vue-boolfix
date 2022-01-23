@@ -7,6 +7,18 @@
             </div>
             <!-- /logo -->
 
+            <!-- genres filter -->
+            <label for="genres"></label>
+            <select name="genres" id="genres">
+                <option v-for="(genre, index) in genresList"
+                :key="index" 
+                :value="genre"
+                >
+                    {{ genre }}
+                </option>
+            </select>
+            <!-- /genres filter -->
+
             <!-- search bar -->
             <div class="search">
                 <input type="text" name="text" id="text" placeholder="Search" v-model="inputText" @keyup.enter="runSearch()">
