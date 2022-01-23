@@ -8,15 +8,19 @@
             <!-- /logo -->
 
             <!-- genres filter -->
-            <label for="genres"></label>
-            <select name="genres" id="genres">
-                <option v-for="(genre, index) in genresList"
-                :key="index" 
-                :value="genre"
-                >
-                    {{ genre }}
-                </option>
-            </select>
+            <div class="filter">
+                <label for="genres">Scegli un genere </label>
+                <select v-model="selected" @change="$emit('filterGenre', selected)" name="genres" id="genres">
+                    <option value="All">All</option>
+                    <option v-for="(genre, index) in genresList"
+                    :key="index" 
+                    :value="genre"
+                    >
+                        {{ genre }}
+                    </option>
+                </select>
+            </div>
+            
             <!-- /genres filter -->
 
             <!-- search bar -->
@@ -37,6 +41,7 @@ export default {
     name: "Header",
     data() {
         return {
+            selected: '',
             inputText: '',
             cards: [],
             genresList: [],
@@ -197,6 +202,9 @@ export default {
              width: 40%;
              height: 100%;
          }
+     }
+     label {
+         color: gray;
      }
  }
 </style>

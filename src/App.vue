@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <Header @compileInfo="setMovie($event)"/>
+    <Header @compileInfo="setMovie($event)"
+    @filterGenre="setGenre($event)"/>
     <Main 
     :cards="searchArray"
+    :genreFil="filteredGenre"
     />
   </div>
 </template>
@@ -20,12 +22,16 @@ export default {
   data() {
     return {
       searchArray: [],
+      filteredGenre: ''
     }
   },
   methods: {
-    setMovie(array) {{ //received array emit function
+    setMovie(array) { //received array emit function
       this.searchArray = array;
-    }}
+    },
+    setGenre(text) {
+      this.filteredGenre = text;
+    }
   }
 };
 </script>

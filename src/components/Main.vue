@@ -12,6 +12,7 @@
             :overview="card.overview"
             :cast="card.cast"
             :genres="card.genres"
+            :filGen="genreFil"
             />
         </div>
     </main>
@@ -33,6 +34,9 @@ export default {
     props: {
         cards: {
             type: Array,
+        },
+        genreFil: {
+            type: String
         }
     },
     methods: {

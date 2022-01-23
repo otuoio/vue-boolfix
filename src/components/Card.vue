@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" v-show="filterGenre()">
       <!-- card poster -->
       <div class="poster">
           <img v-if="isNull(poster)" :src="poster" :alt="alt">
@@ -30,6 +30,7 @@
                 </div>
             </div>
             <div class="genres">
+                Generi: 
                 <div class="genre" v-for="(genre, index) in genres"
                 :key="index">
                 {{ genre.name }} {{ comma(genres, index) }}
@@ -59,6 +60,7 @@ export default {
                 'de',
                 'fr'
             ],
+            listGenres: []
         }
     },
     props: {
@@ -88,9 +90,27 @@ export default {
         },
         genres: {
             type: Array,
+        },
+        filGen: {
+            type: String,
         }
     },
+    created() {
+        this.setListGenres();
+    },
     methods: {
+        filterGenre() {
+            if (this.filGen === 'All') {
+                return true;
+            } else if (this.listGenres.includes(this.filGen)) {
+                return true;
+            }
+        },
+        setListGenres() {
+            this.genres.forEach(element => {
+                this.listGenres.push(element.name);
+            });
+        },
         isNull(item) {
             if (item !== 'https://image.tmdb.org/t/p/w342/null') {
                 return true;
