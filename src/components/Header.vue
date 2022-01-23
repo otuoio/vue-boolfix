@@ -27,12 +27,14 @@ export default {
         return {
             inputText: '',
             cards: [],
+            genresList: [],
             movies: [],
             tvs: [],
             moviesCast: [],
             tvsCast: [],
             // api request data
             queryLink: 'https://api.themoviedb.org/3/search/',
+            queryGenres: 'https://api.themoviedb.org/3/genre/',
             queryMovieCredits: 'https://api.themoviedb.org/3/movie/',
             queryTvCredits: 'https://api.themoviedb.org/3/tv/',
             apiKey: '981731b128a2c3353bf07ea0418b25f5', //mia api_key
@@ -40,9 +42,44 @@ export default {
         }
     },
     created() {
-       
+        this.searchGenres();
     },
     methods: {
+        searchGenres() {
+            let queryGenres = this.queryGenres;
+            let endpointGenresMovie = 'movie/list';
+            let endpointGenresTv = 'tv/list';
+            let parameters2 = {
+                api_key: this.apiKey,
+                language: this.lang,
+            };
+            axios//chiamata per i generi movie
+            .get(`${queryGenres}${endpointGenresMovie}`, {params: parameters2})
+            .then(result => {
+                // array con la lista dei generi dei movie
+                result.data.genres.forEach(element => {
+                    this.genresList.push(element.name);
+                });
+
+                axios//chiamata per i generi tv
+                .get(`${queryGenres}${endpointGenresTv}`, {params: parameters2})
+                .then(result => {
+                    // ciclo sugli elementi dell'array con i generi dei tvs e, se l'elemento non è ancora contenuto nell'array dei generi, lo pusho
+                    result.data.genres.forEach(element => {
+                        if (!(this.genresList.includes(element.name))) {
+                            this.genresList.push(element.name);
+                        }
+                    });
+                    console.log(this.genresList);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
         runSearch() { //axios request function on keyup enter 
             let queryLink = this.queryLink;
             let endpointMovie = 'movie';
@@ -60,6 +97,7 @@ export default {
             .get(`${queryLink}${endpointMovie}`, {params: parameters})
             .then(result => {
                 this.movies = result.data.results;
+                
                 // chiamata axios per reperire il cast dall'id per movie
                 this.movies.forEach(element => {
                     let queryMovieCredits = this.queryMovieCredits
