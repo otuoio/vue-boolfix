@@ -100,7 +100,7 @@ export default {
     },
     methods: {
         filterGenre() {
-            if (this.filGen === 'All') {
+            if (this.filGen === '') {
                 return true;
             } else if (this.listGenres.includes(this.filGen)) {
                 return true;

@@ -11,7 +11,7 @@
             <div class="filter">
                 <label for="genres">Scegli un genere </label>
                 <select v-model="selected" @change="$emit('filterGenre', selected)" name="genres" id="genres">
-                    <option value="All">All</option>
+                    <option value="" selected disabled hidden>All</option>
                     <option v-for="(genre, index) in genresList"
                     :key="index" 
                     :value="genre"
