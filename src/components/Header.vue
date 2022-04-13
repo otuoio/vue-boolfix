@@ -8,10 +8,10 @@
             <!-- /logo -->
 
             <!-- genres filter -->
-            <div class="filter">
-                <label for="genres">Scegli un genere </label>
-                <select v-model="selected" @change="$emit('filterGenre', selected)" name="genres" id="genres">
-                    <option value="" selected disabled hidden>All</option>
+            <div class="filter d-flex">
+                <label for="genres text-nowrap  ">Scegli un genere </label>
+                <select class="form-select bg-dark text-light" v-model="selected" @change="$emit('filterGenre', selected)" name="genres" id="genres">
+                    <option value="" selected disabled hidden>Tutti i generi</option>
                     <option v-for="(genre, index) in genresList"
                     :key="index" 
                     :value="genre"
@@ -24,9 +24,9 @@
             <!-- /genres filter -->
 
             <!-- search bar -->
-            <div class="search">
-                <input type="text" name="text" id="text" placeholder="Search" v-model="inputText" @keyup.enter="runSearch()">
-                <button @click="$emit('compileInfo', cards)" class="btn">Cerca</button>
+            <div class="search d-flex">
+                <input class="form-control bg-dark text-light" type="text" name="text" id="text" placeholder="Inserisci titolo" v-model="inputText" @keyup.enter="runSearch()">
+                <button class="btn btn-outline-danger " @click="$emit('compileInfo', cards)">Cerca</button>
             </div>
             <!-- /search bar -->
         </div>
